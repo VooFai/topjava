@@ -2,14 +2,15 @@ package ru.javawebinar.topjava.model;
 
 import java.time.LocalDateTime;
 
-public class UserMeal {
+public class UserMeal extends Entity {
     private final LocalDateTime dateTime;
 
     private final String description;
 
     private final int calories;
 
-    public UserMeal(LocalDateTime dateTime, String description, int calories) {
+    public UserMeal(Long id, LocalDateTime dateTime, String description, int calories) {
+        super(id);
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;

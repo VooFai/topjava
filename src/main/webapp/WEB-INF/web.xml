@@ -9,23 +9,23 @@
     <!--users-->
     <servlet>
         <servlet-name>userServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.web.UserServlet</servlet-class>
+        <servlet-class>ru.javawebinar.topjava.controller.UserServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>userServlet</servlet-name>
-        <url-pattern>/users</url-pattern>
+        <url-pattern>/user</url-pattern>
     </servlet-mapping>
 
     <!--meals-->
     <servlet>
         <servlet-name>mealServlet</servlet-name>
-        <servlet-class>ru.javawebinar.topjava.web.MealServlet</servlet-class>
+        <servlet-class>ru.javawebinar.topjava.controller.MealServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>mealServlet</servlet-name>
-        <url-pattern>/meals</url-pattern>
+        <url-pattern>/meal</url-pattern>
     </servlet-mapping>
 
 </web-app>

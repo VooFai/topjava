@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.web;
+package ru.javawebinar.topjava.controller;
 
 import org.slf4j.Logger;
 
@@ -18,7 +18,7 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("info: redirect to users");
 
-//        request.getRequestDispatcher("/users.jsp").forward(request, response);
-        response.sendRedirect("users.jsp");
+        request.getRequestDispatcher("list/user.jsp").forward(request, response);
+//        response.sendRedirect("users.jsp");
     }
 }
