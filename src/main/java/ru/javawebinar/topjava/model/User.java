@@ -23,6 +23,7 @@ public class User extends AbstractNamedEntity {
     public User() {
     }
 
+    //конструктор копирования
     public User(User u) {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getCaloriesPerDay(), u.isEnabled(), u.getRoles());
     }

@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.model;
 
-import com.sun.istack.internal.NotNull;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
