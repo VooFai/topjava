@@ -46,9 +46,12 @@ public class MealServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        Meal created = getCreated();
-        service.create(created, USER_ID);
-        assertMatch(service.getAll(USER_ID), created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
+        Meal mockData = getCreated();
+        Meal created = service.create(mockData, USER_ID);
+        mockData.setId(created.getId());
+        mockData.setUserId(USER_ID);
+
+        assertMatch(service.getAll(USER_ID), mockData, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
     }
 
     @Test
@@ -64,9 +67,11 @@ public class MealServiceTest {
 
     @Test
     public void testUpdate() throws Exception {
-        Meal updated = getUpdated();
-        service.update(updated, USER_ID);
-        assertMatch(service.get(MEAL1_ID, USER_ID), updated);
+        Meal mockData = getUpdated();
+        Meal updated = service.update(mockData, USER_ID);
+        mockData.setId(updated.getId());
+        mockData.setUserId(USER_ID);
+        assertMatch(service.get(MEAL1_ID, USER_ID), mockData);
     }
 
     @Test(expected = NotFoundException.class)

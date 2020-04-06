@@ -25,6 +25,12 @@ public class MealTestData {
 
     public static final List<Meal> MEALS = Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
 
+    static {
+        MEALS.forEach(m -> m.setUserId(UserTestData.USER_ID));
+        ADMIN_MEAL1.setUserId(UserTestData.ADMIN_ID);
+        ADMIN_MEAL2.setUserId(UserTestData.ADMIN_ID);
+    }
+
     public static Meal getCreated() {
         return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 300);
     }
