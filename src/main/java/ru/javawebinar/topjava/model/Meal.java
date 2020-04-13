@@ -15,10 +15,10 @@ import java.time.LocalTime;
 @Table(name = "meals",
         uniqueConstraints = {@UniqueConstraint(name = "meals_unique_user_datetime_idx", columnNames = {"user_id", "date_time"})})
 @NamedQueries({
-        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m where m.id = :id AND m.userId = :user_id"),
-        @NamedQuery(name = Meal.GET_BETWEEN_DATES, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user where m.dateTime >= :startDate AND m.dateTime <= :endDate"),
-        @NamedQuery(name = Meal.GET_BY_ID_AND_USER, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user where m.id = :id AND m.userId = :user_id"),
-        @NamedQuery(name = Meal.GET_ALL_SORTED, query = "SELECT m FROM Meal m ORDER BY m.userId, m.calories"),
+        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m where m.id = :id AND m.user.id = :user_id"),
+        @NamedQuery(name = Meal.GET_BETWEEN_DATES, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user where m.dateTime >= :start_date AND m.dateTime <= :end_date AND m.user.id = :user_id"),
+        @NamedQuery(name = Meal.GET_BY_ID_AND_USER, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user where m.id = :id AND m.user.id = :user_id"),
+        @NamedQuery(name = Meal.GET_ALL_SORTED, query = "SELECT m FROM Meal m ORDER BY m.user.id, m.calories"),
 })
 public class Meal extends AbstractBaseEntity {
 
