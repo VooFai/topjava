@@ -45,7 +45,7 @@ public class MealServiceTest {
     }
 
     @Test
-    public void testSave() throws Exception {
+    public void testCreate() throws Exception {
         Meal mockData = getCreated();
         Meal created = service.create(mockData, USER_ID);
         mockData.setId(created.getId());

@@ -1,21 +1,45 @@
 package ru.javawebinar.topjava.model;
 
 
+import org.hibernate.validator.constraints.Range;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+
+@Entity
+@Table(name = "meals",
+        uniqueConstraints = {@UniqueConstraint(name = "meals_unique_user_datetime_idx", columnNames = {"user_id", "date_time"})})
+@NamedQueries({
+        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m where m.id = :id AND m.userId = :user_id"),
+        @NamedQuery(name = Meal.GET_BETWEEN_DATES, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user where m.dateTime >= :startDate AND m.dateTime <= :endDate"),
+        @NamedQuery(name = Meal.GET_BY_ID_AND_USER, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user where m.id = :id AND m.userId = :user_id"),
+        @NamedQuery(name = Meal.GET_ALL_SORTED, query = "SELECT m FROM Meal m ORDER BY m.userId, m.calories"),
+})
 public class Meal extends AbstractBaseEntity {
 
+    public static final String DELETE = "Meal.delete";
+    public static final String GET_BETWEEN_DATES = "Meal.getBetweenDates";
+    public static final String GET_BY_ID_AND_USER = "Meal.getByIDAndUser";
+    public static final String GET_ALL_SORTED = "Meal.getAllSorted";
+
+    @Column(name = "date_time", nullable = false)
+    @javax.validation.constraints.NotNull
     private LocalDateTime dateTime;
 
+    @Column(name = "description", nullable = false)
+    @NotBlank
     private String description;
 
+    @Column(name = "calories", nullable = false)
+    @Range(min = 0, max = 10000)
     private int calories;
 
+    @Transient
     private Integer userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
