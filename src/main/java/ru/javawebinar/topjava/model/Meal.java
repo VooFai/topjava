@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.model;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -16,6 +17,9 @@ public class Meal extends AbstractBaseEntity {
     private int calories;
 
     private Integer userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     public Meal() {
     }
@@ -69,6 +73,14 @@ public class Meal extends AbstractBaseEntity {
 
     public void setCalories(int calories) {
         this.calories = calories;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
