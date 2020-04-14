@@ -1,8 +1,10 @@
 package ru.javawebinar.topjava.repository.jpa;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
 
 import javax.persistence.EntityManager;
@@ -20,11 +22,11 @@ public class JpaMealRepositoryImpl implements MealRepository {
     @Override
     @Transactional
     public Meal save(Meal meal, int userId) {
+        meal.setUser(em.getReference(User.class, userId));
         if (meal.isNew()) {
             em.persist(meal);
             return meal;
         } else {
-            meal.setUserId(userId);
             return em.merge(meal);
         }
     }
@@ -40,16 +42,18 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
     @Override
     public Meal get(int id, int userId) {
-        return em.createNamedQuery(Meal.GET_BY_ID_AND_USER, Meal.class)
+        List<Meal> result = em.createNamedQuery(Meal.GET_BY_ID_AND_USER, Meal.class)
                 .setParameter("id", id)
                 .setParameter("user_id", userId)
-                .setMaxResults(1)
-                .getSingleResult();
+                .getResultList();
+        return DataAccessUtils.singleResult(result);
     }
 
     @Override
     public List<Meal> getAll(int userId) {
-        return em.createNamedQuery(Meal.GET_ALL_SORTED, Meal.class).getResultList();
+        return em.createNamedQuery(Meal.GET_ALL_SORTED, Meal.class)
+                .setParameter("user_id", userId)
+                .getResultList();
     }
 
     @Override

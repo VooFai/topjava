@@ -16,9 +16,12 @@ import java.time.LocalTime;
         uniqueConstraints = {@UniqueConstraint(name = "meals_unique_user_datetime_idx", columnNames = {"user_id", "date_time"})})
 @NamedQueries({
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m where m.id = :id AND m.user.id = :user_id"),
-        @NamedQuery(name = Meal.GET_BETWEEN_DATES, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user where m.dateTime >= :start_date AND m.dateTime <= :end_date AND m.user.id = :user_id"),
+        @NamedQuery(name = Meal.GET_BETWEEN_DATES,
+                query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user " +
+                        "where m.dateTime >= :start_date AND m.dateTime <= :end_date AND m.user.id = :user_id " +
+                        "ORDER BY m.dateTime DESC"),
         @NamedQuery(name = Meal.GET_BY_ID_AND_USER, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user where m.id = :id AND m.user.id = :user_id"),
-        @NamedQuery(name = Meal.GET_ALL_SORTED, query = "SELECT m FROM Meal m ORDER BY m.user.id, m.calories"),
+        @NamedQuery(name = Meal.GET_ALL_SORTED, query = "SELECT m FROM Meal m LEFT JOIN FETCH m.user WHERE m.user.id = :user_id ORDER BY m.dateTime DESC"),
 })
 public class Meal extends AbstractBaseEntity {
 
@@ -39,9 +42,6 @@ public class Meal extends AbstractBaseEntity {
     @Range(min = 0, max = 10000)
     private int calories;
 
-    @Transient
-    private Integer userId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
@@ -57,14 +57,6 @@ public class Meal extends AbstractBaseEntity {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public LocalDateTime getDateTime() {

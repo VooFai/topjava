@@ -33,6 +33,9 @@ public class MealServiceTest {
     @Autowired
     private MealService service;
 
+    @Autowired
+    private UserService userService;
+
     @Test
     public void testDelete() throws Exception {
         service.delete(MEAL1_ID, USER_ID);
@@ -49,7 +52,7 @@ public class MealServiceTest {
         Meal mockData = getCreated();
         Meal created = service.create(mockData, USER_ID);
         mockData.setId(created.getId());
-        mockData.setUserId(USER_ID);
+        mockData.setUser(userService.get(USER_ID));
 
         assertMatch(service.getAll(USER_ID), mockData, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
     }
@@ -70,7 +73,7 @@ public class MealServiceTest {
         Meal mockData = getUpdated();
         Meal updated = service.update(mockData, USER_ID);
         mockData.setId(updated.getId());
-        mockData.setUserId(USER_ID);
+        mockData.setUser(userService.get(USER_ID));
         assertMatch(service.get(MEAL1_ID, USER_ID), mockData);
     }
 
