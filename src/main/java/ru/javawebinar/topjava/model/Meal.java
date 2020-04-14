@@ -1,16 +1,17 @@
 package ru.javawebinar.topjava.model;
 
-
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
-import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-
+@SuppressWarnings("JpaQlInspection")
 @Entity
 @Table(name = "meals",
         uniqueConstraints = {@UniqueConstraint(name = "meals_unique_user_datetime_idx", columnNames = {"user_id", "date_time"})})
@@ -31,7 +32,7 @@ public class Meal extends AbstractBaseEntity {
     public static final String GET_ALL_SORTED = "Meal.getAllSorted";
 
     @Column(name = "date_time", nullable = false)
-    @javax.validation.constraints.NotNull
+    @NotNull
     private LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)
@@ -39,10 +40,12 @@ public class Meal extends AbstractBaseEntity {
     private String description;
 
     @Column(name = "calories", nullable = false)
-    @Range(min = 0, max = 10000)
+    @Range(min = 10, max = 5000)
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 
     public Meal() {
@@ -102,7 +105,7 @@ public class Meal extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "Meal{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", dateTime=" + dateTime +
                 ", description='" + description + '\'' +
                 ", calories=" + calories +
