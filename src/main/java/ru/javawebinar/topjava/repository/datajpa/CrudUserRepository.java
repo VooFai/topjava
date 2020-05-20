@@ -14,7 +14,6 @@ import java.util.List;
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Modifying
-//    @Query(name = User.DELETE)
     @Query("DELETE FROM User u WHERE u.id=:id")
     int delete(@Param("id") int id);
 
@@ -28,5 +27,6 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
     @Override
     List<User> findAll(Sort sort);
 
-    User getByEmail(String email);
+    @Query("select u from User u where u.email = :email")
+    User getByEmail(@Param("email")String email);
 }
