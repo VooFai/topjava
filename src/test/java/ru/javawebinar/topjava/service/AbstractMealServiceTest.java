@@ -27,7 +27,7 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
     @Test
     public void testDelete() throws Exception {
         service.delete(MEAL1_ID, USER_ID);
-        assertMatch(service.getAll(USER_ID), MEAL6, MEAL5, MEAL4, MEAL3, MEAL2);
+        MATCHER.assertListEquals(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
     }
 
     @Test(expected = NotFoundException.class)
@@ -41,8 +41,7 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
         Meal created = service.create(mockData, USER_ID);
         mockData.setId(created.getId());
         mockData.setUser(userService.get(USER_ID));
-
-        assertMatch(service.getAll(USER_ID), mockData, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
+        MATCHER.assertListEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
     }
 
     @Test
@@ -72,7 +71,7 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        assertMatch(service.getAll(USER_ID), MEALS);
+        MATCHER.assertListEquals(MEALS, service.getAll(USER_ID));
     }
 
     @Test
