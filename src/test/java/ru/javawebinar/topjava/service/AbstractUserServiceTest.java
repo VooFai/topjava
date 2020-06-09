@@ -10,9 +10,8 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
-import java.util.Date;
 
 import static ru.javawebinar.topjava.UserTestData.*;
 
@@ -72,7 +71,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         User updated = new User(USER);
         updated.setName("UpdatedName");
         updated.setCaloriesPerDay(330);
-//        updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
+        updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
         service.update(updated);
         assertMatch(service.get(USER_ID), updated);
     }
@@ -80,7 +79,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Test
     public void getAll() throws Exception {
         List<User> all = service.getAll();
-        assertMatch(all, ADMIN, USER);
+        MATCHER.assertListEquals(Arrays.asList(ADMIN, USER), all);
     }
 
     @Test

@@ -7,7 +7,6 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.AbstractJpaUserServiceTest;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import static org.junit.Assert.assertEquals;
 import static ru.javawebinar.topjava.Profiles.DATAJPA;
 import static ru.javawebinar.topjava.UserTestData.*;
 
@@ -16,8 +15,8 @@ public class DataJpaUserServiceTest extends AbstractJpaUserServiceTest {
     @Test
     public void testGetWithMeals() throws Exception {
         User user = service.getWithMeals(USER_ID);
-        assertEquals(USER, user);
-        assertEquals(MealTestData.MEALS, user.getMeals());
+        MATCHER.assertEquals(USER, user);
+        MealTestData.MATCHER.assertListEquals(MealTestData.MEALS, user.getMeals());
     }
 
     @Test(expected = NotFoundException.class)
