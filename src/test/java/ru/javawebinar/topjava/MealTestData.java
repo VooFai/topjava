@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava;
 
+import ru.javawebinar.topjava.matcher.BeanMatcher;
 import ru.javawebinar.topjava.model.Meal;
 
 import java.time.Month;
@@ -31,7 +32,9 @@ public class MealTestData {
         ADMIN_MEAL2.setUser(UserTestData.ADMIN);
     }
 
-    public static class MATCHER {
+    public static final BeanMatcher<Meal> MATCHER = BeanMatcher.of(Meal.class);
+
+   /* public static class MATCHER {
         public static void assertEquals(Meal actual, Meal expected) {
             assertMatch(actual, expected);
         }
@@ -39,7 +42,7 @@ public class MealTestData {
         public static void assertListEquals(Iterable<Meal> actual, Iterable<Meal> expected) {
             assertMatch(actual, expected);
         }
-    }
+    }*/
 
     public static Meal getCreated() {
         return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 300);
