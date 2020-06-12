@@ -2,7 +2,6 @@ package ru.javawebinar.topjava;
 
 import ru.javawebinar.topjava.matcher.BeanMatcher;
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.to.MealWithExceed;
 
 import java.time.Month;
 import java.util.Arrays;
@@ -34,7 +33,6 @@ public class MealTestData {
     }
 
     public static final BeanMatcher<Meal> MATCHER = BeanMatcher.of(Meal.class);
-    public static final BeanMatcher<MealWithExceed> MATCHER_WITH_EXCEED = BeanMatcher.of(MealWithExceed.class);
 
    /* public static class MATCHER {
         public static void assertEquals(Meal actual, Meal expected) {
