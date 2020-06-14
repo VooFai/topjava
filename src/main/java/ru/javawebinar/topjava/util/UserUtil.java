@@ -2,20 +2,13 @@ package ru.javawebinar.topjava.util;
 
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
+import ru.javawebinar.topjava.to.UserTo;
 
 public class UserUtil {
-    public static final List<User> USERS = Arrays.asList(
-            new User(1, "me", "email", "password", Role.ROLE_ADMIN)
-    );
 
-    public static List<User> getSorted(Collection<User> users) {
-        return users.stream()
-                .sorted(Comparator.comparing(User::getName))
-                .collect(Collectors.toList());
+    public static final int DEFAULT_CALORIES_PER_DAY = 2000;
+
+    public static User createNewFromTo(UserTo newUser) {
+        return new User(null, newUser.getName(), newUser.getEmail().toLowerCase(), newUser.getPassword(), Role.ROLE_USER);
     }
-
 }
