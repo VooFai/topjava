@@ -30,7 +30,7 @@
                 <th></th>
             </tr>
             </thead>
-            <c:forEach items="${users}" var="user">
+           <%-- <c:forEach items="${users}" var="user">
                 <jsp:useBean id="user" scope="page" type="ru.javawebinar.topjava.model.User"/>
                 <tr class="${user.enabled ? '' : 'disabled'}">
                     <td><c:out value="${user.name}"/></td>
@@ -42,7 +42,7 @@
                     <td><a onclick=updateRow(${user.id})><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
                     <td><a onclick="deleteRow(${user.id})"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
-            </c:forEach>
+            </c:forEach>--%>
         </table>
     </div>
 </div>
