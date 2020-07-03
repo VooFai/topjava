@@ -15,6 +15,8 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
     @NotBlank
     @Size(min = 2, max = 100)
     @Column(name = "name", nullable = false)
+    @Size(min = 2, max = 100)
+    @SafeHtml(groups = {View.ValidatedRestUI.class})
     protected String name;
 
     public AbstractNamedEntity() {
