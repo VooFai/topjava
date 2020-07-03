@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.to;
 
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
+import ru.javawebinar.topjava.View;
 import ru.javawebinar.topjava.util.UserUtil;
 
 import javax.validation.constraints.Email;
@@ -13,6 +15,7 @@ public class UserTo extends BaseTo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotBlank
+    @SafeHtml(groups = {View.ValidatedRestUI.class})
     private String name;
 
     @Email

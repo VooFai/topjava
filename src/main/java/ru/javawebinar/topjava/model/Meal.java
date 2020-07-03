@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.javawebinar.topjava.View;
 import ru.javawebinar.topjava.util.DateTimeUtil;

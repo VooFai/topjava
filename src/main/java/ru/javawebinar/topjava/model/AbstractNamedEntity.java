@@ -1,5 +1,8 @@
 package ru.javawebinar.topjava.model;
 
+import org.hibernate.validator.constraints.SafeHtml;
+import ru.javawebinar.topjava.View;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;

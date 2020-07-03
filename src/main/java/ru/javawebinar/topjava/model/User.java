@@ -3,9 +3,11 @@ package ru.javawebinar.topjava.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.util.CollectionUtils;
+import ru.javawebinar.topjava.View;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -37,6 +39,7 @@ public class User extends AbstractNamedEntity {
     @Email
     @NotBlank
     @Size(max = 100)
+    @SafeHtml(groups = {View.ValidatedRestUI.class})  // https://stackoverflow.com/questions/17480809
     private String email;
 
     // https://stackoverflow.com/a/12505165/548473
